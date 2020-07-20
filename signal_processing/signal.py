@@ -2,12 +2,14 @@
 help calculating frequency of a signal
 """
 import numpy as np
+import traceback
 
 
 class Signal:
     """
-    an advanced signal frequency analyser
+    an advanced signal library
     """
+
     def __init__(self, values, sampling_rate):
         """
         :param values: values of the signal
@@ -16,25 +18,25 @@ class Signal:
         self.sampling_rate = sampling_rate
 
     @classmethod
-    def generate(cls,
-                 function="sin",
-                 sampling_rate=10,
-                 average=0,
-                 phase=0,
-                 frequency=2,
-                 how_long=10):
+    def generate_sinus(cls,
+                       sampling_rate=1,
+                       average=0,
+                       phase=0,
+                       frequency=2,
+                       duration=10):
         """
-
-        :param function: periodic function
-        :param fps: sampling rate
+        :param sampling_rate: sampling rate
         :param average: average of the signal
         :param phase: phase in radians
         :param frequency: frequency
-        :param how_long: time in s
+        :param duration: time in s
         :return: Signal object
         """
-        time = range(0, how_long, how_long*sampling_rate)
-        values = np.sin(time)
+        time = np.linspace(0,
+                           duration,
+                           int(sampling_rate*duration), endpoint=False)
+
+        values = np.sin(2 * np.pi * frequency * time + phase) + average
         return Signal(values, sampling_rate)
 
     def frequency(self):
