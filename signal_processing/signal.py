@@ -37,12 +37,21 @@ class Signal:
                            num=int(sampling_rate*duration),
                            endpoint=True)
 
-        values = np.sin(2 * np.pi * frequency * time - phase) + average
+        values = np.sin(2 * np.pi * frequency * time + phase) + average
         return Signal(values, sampling_rate)
 
     def frequency(self):
         """
         :return: main frequency of the signal
         """
+        fourrier_transform = np.fft.fft(self.values) / len(self.values)  # normalized fourrier trasform
+        fourrier_transform = fourrier_transform[range(int(len(self.values)/2))]  # get rid of negative frequency
 
+        tpCount = len(self.values)
+        values = np.arange(int(tpCount / 2))
+        timePeriod = tpCount / self.sampling_rate
 
+        frequencies = values / timePeriod
+        max_peak = np.argmax(np.abs(fourrier_transform))
+        result = frequencies[max_peak]
+        return result
