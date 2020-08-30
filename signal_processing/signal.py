@@ -28,7 +28,7 @@ class Signal:
         :param sampling_rate: sampling rate
         :param average: average of the signal
         :param phase: phase in radians
-        :param frequency: frequency
+        :param frequency: frequency in herz
         :param duration: time in s
         :return: Signal object
         """
@@ -43,3 +43,5 @@ class Signal:
         """
         :return: main frequency of the signal
         """
+
+
