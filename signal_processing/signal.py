@@ -34,9 +34,10 @@ class Signal:
         """
         time = np.linspace(0,
                            duration,
-                           int(sampling_rate*duration), endpoint=False)
+                           num=int(sampling_rate*duration),
+                           endpoint=True)
 
-        values = np.sin(2 * np.pi * frequency * time + phase) + average
+        values = np.sin(2 * np.pi * frequency * time - phase) + average
         return Signal(values, sampling_rate)
 
     def frequency(self):
