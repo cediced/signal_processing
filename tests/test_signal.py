@@ -4,6 +4,7 @@ test the different fucntionnality of the module signal
 
 import unittest
 import numpy as np
+from decimal import Decimal
 
 from signal_processing import signal
 
@@ -42,4 +43,13 @@ class TestGenerateSinus(unittest.TestCase):
                                                duration=10)
 
             self.assertEqual(sig.values.shape[0], expected_sampling_rate*how_long)
+
+    def test_average(self):
+        wanted_average = 10
+        sig = signal.Signal.generate_sinus(sampling_rate=10,
+                                           average=wanted_average,
+                                           phase=0,
+                                           frequency=10,
+                                           duration=10)
+        self.assertEqual(round(sig.values.mean()), wanted_average)
 
